@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_print
 
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +10,9 @@ class MoviesProvider extends ChangeNotifier {
   final String _baseUrl = 'api.themoviedb.org';
   final String _segment = '3/movie/now_playing';
   final String _language = 'es-ES';
+
+//LLamo una lista de tipo Movie,
+  List<Movie> onDisplayMovie = [];
 
   MoviesProvider() {
     print('MoviesProvider Inicializado');
@@ -35,5 +36,9 @@ class MoviesProvider extends ChangeNotifier {
     //final Map<String, dynamic> decodeData = jsonDecode(response.body);
 
     print(nowPlayingResponse.results[5].title);
+    onDisplayMovie = nowPlayingResponse.results;
+
+    //este notifyListeners notifica a los widgets para que se actualicen
+    notifyListeners();
   }
 }
