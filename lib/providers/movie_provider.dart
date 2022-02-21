@@ -8,20 +8,23 @@ import 'package:peliculasapp/models/models.dart';
 class MoviesProvider extends ChangeNotifier {
   final String _apiKey = 'f3fd596d627828915cea10d097ef9453';
   final String _baseUrl = 'api.themoviedb.org';
-  final String _segment = '3/movie/now_playing';
+  final String _segmentNowPlaying = '3/movie/now_playing';
+  final String _segmentPopular = '3/movie/popular';
   final String _language = 'es-ES';
 
 //LLamo una lista de tipo Movie,
   List<Movie> onDisplayMovie = [];
+  List<Movie> popularMovies = [];
 
   MoviesProvider() {
     print('MoviesProvider Inicializado');
 
     getOnDisplayMovies();
+    getPopularMovies();
   }
 
   getOnDisplayMovies() async {
-    var url = Uri.https(_baseUrl, _segment, {
+    final url = Uri.https(_baseUrl, _segmentNowPlaying, {
       'api_key': _apiKey,
       'language': _language,
       'page': '1',
@@ -40,5 +43,19 @@ class MoviesProvider extends ChangeNotifier {
 
     //este notifyListeners notifica a los widgets para que se actualicen
     notifyListeners();
+  }
+
+  getPopularMovies() async {
+    final url = Uri.https(_baseUrl, _segmentPopular, {
+      'api_key': _apiKey,
+      'language': _language,
+      'page': '1',
+    });
+
+    final response = await http.get(url);
+
+    final popularMovieslist = PopularResponse.fromJson(response.body);
+    popularMovies = popularMovieslist.results;
+    print(popularMovieslist.results[5].title);
   }
 }

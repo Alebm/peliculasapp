@@ -29,28 +29,34 @@ class CardSwiper extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: size.height * 0.5,
-      child: Swiper(
-        itemCount: movies.length,
-        layout: SwiperLayout.STACK,
-        itemWidth: size.width * 0.6,
-        itemHeight: size.height * 0.4,
-        itemBuilder: (BuildContext context, int index) {
-          final movie = movies[index];
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 32),
+        child: Swiper(
+          viewportFraction: 0.6,
+          scale: 0.4,
+          itemCount: movies.length,
+          layout: SwiperLayout.DEFAULT,
+          itemWidth: size.width * 0.4,
+          itemHeight: size.height * 0.4,
+          itemBuilder: (BuildContext context, int index) {
+            final movie = movies[index];
 
-          return GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'details',
-                arguments: 'Movie-Instance'),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child: FadeInImage(
-                fadeInDuration: const Duration(milliseconds: 300),
-                placeholder: const AssetImage('assets/loading.gif'),
-                image: NetworkImage(movie.fullPosterImg),
-                fit: BoxFit.cover,
+            return GestureDetector(
+              onTap: () => Navigator.pushNamed(context, 'details',
+                  arguments: 'Movie-Instance'),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: FadeInImage(
+                  fadeInDuration: const Duration(milliseconds: 300),
+                  placeholder: const AssetImage('assets/loading.gif'),
+                  image: NetworkImage(movie.fullPosterImg),
+                  fit: BoxFit.cover,
+                  placeholderFit: BoxFit.cover,
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
