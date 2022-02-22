@@ -16,6 +16,8 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> onDisplayMovie = [];
   List<Movie> popularMovies = [];
 
+  int _popularPage = 0;
+
   MoviesProvider() {
     print('MoviesProvider Inicializado');
 
@@ -23,17 +25,33 @@ class MoviesProvider extends ChangeNotifier {
     getPopularMovies();
   }
 
+  //ceramos esto para optimizar el codigo ya que hay fragmentos iguales, en los get...
+
+  Future<String> _getJsonData(String _segment, [int page = 1]) async {
+    final url = Uri.https(_baseUrl, _segment, {
+      'api_key': _apiKey,
+      'language': _language,
+      'page': '$page',
+    });
+
+    // Await the http get response, then decode the json-formatted response.
+    final response = await http.get(url);
+    return response.body;
+  }
+
   getOnDisplayMovies() async {
-    final url = Uri.https(_baseUrl, _segmentNowPlaying, {
+    /* final url = Uri.https(_baseUrl, _segmentNowPlaying, {
       'api_key': _apiKey,
       'language': _language,
       'page': '1',
     });
 
     // Await the http get response, then decode the json-formatted response.
-    final response = await http.get(url);
+    final response = await http.get(url); //!hacia arriba esta parte esta duplicada y optimizamos */
+
+    final jsonData = await _getJsonData(_segmentNowPlaying);
     //hago un cambio por el mapeo que hice en el NowPlayingResponse y el Movie
-    final nowPlayingResponse = NowPlayingResponse.fromJson(response.body);
+    final nowPlayingResponse = NowPlayingResponse.fromJson(jsonData);
 
     //forma anterior para hacer el mapa
     //final Map<String, dynamic> decodeData = jsonDecode(response.body);
@@ -46,16 +64,20 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   getPopularMovies() async {
-    final url = Uri.https(_baseUrl, _segmentPopular, {
+    /* final url = Uri.https(_baseUrl, _segmentPopular, {
       'api_key': _apiKey,
       'language': _language,
       'page': '1',
     });
 
-    final response = await http.get(url);
+    final response = await http.get(url);//! esta es la otra parte duplicada */
 
-    final popularMovieslist = PopularResponse.fromJson(response.body);
-    popularMovies = popularMovieslist.results;
-    print(popularMovieslist.results[5].title);
+    _popularPage++;
+
+    final jsonData = await _getJsonData(_segmentPopular, _popularPage);
+
+    final popularMovieslist = PopularResponse.fromJson(jsonData);
+    popularMovies = [...popularMovies, ...popularMovieslist.results];
+    print(_popularPage);
   }
 }
