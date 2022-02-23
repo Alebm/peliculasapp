@@ -1,8 +1,12 @@
 // ignore_for_file: avoid_print
 
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:http/http.dart' as http;
+
 import 'package:peliculasapp/models/models.dart';
 
 class MoviesProvider extends ChangeNotifier {
@@ -27,11 +31,11 @@ class MoviesProvider extends ChangeNotifier {
 
   //ceramos esto para optimizar el codigo ya que hay fragmentos iguales, en los get...
 
-  Future<String> _getJsonData(String _segment, [int page = 1]) async {
+  Future<dynamic> _getJsonData(String _segment, [int page = 1]) async {
     final url = Uri.https(_baseUrl, _segment, {
       'api_key': _apiKey,
       'language': _language,
-      'page': '$page',
+      'page': page.toString(),
     });
 
     // Await the http get response, then decode the json-formatted response.
@@ -78,6 +82,7 @@ class MoviesProvider extends ChangeNotifier {
 
     final popularMovieslist = PopularResponse.fromJson(jsonData);
     popularMovies = [...popularMovies, ...popularMovieslist.results];
+    notifyListeners();
     print(_popularPage);
   }
 }
