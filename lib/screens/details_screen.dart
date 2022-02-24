@@ -11,7 +11,7 @@ class DetailsScreen extends StatelessWidget {
     // cambiamos la forma traemos la data desde Movie
     final Movie movie = ModalRoute.of(context)!.settings.arguments as Movie;
     // ignore: avoid_print
-    print(movie.title);
+    print(movie.id);
 
     return Scaffold(
       body: CustomScrollView(
@@ -28,7 +28,9 @@ class DetailsScreen extends StatelessWidget {
                 _OverView(
                   movie: movie,
                 ),
-                const CastinCard()
+                CastinCard(
+                  movieId: movie.id,
+                )
               ],
             ),
           ),
