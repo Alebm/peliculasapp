@@ -8,13 +8,13 @@ import 'package:peliculasapp/models/models.dart';
 
 class SearchResponse {
   SearchResponse({
-    required this.page,
+    this.page,
     required this.results,
     required this.totalPages,
     required this.totalResults,
   });
 
-  int page;
+  int? page;
   List<Movie> results;
   int totalPages;
   int totalResults;

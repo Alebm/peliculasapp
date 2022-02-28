@@ -51,8 +51,10 @@ class MovieSearchDelegate extends SearchDelegate {
       return empty();
     }
 
-    final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+    final moviesProvider = Provider.of<MoviesProvider>(context);
+    moviesProvider.getSuggestionsByQuery(query);
 
+//TODO: luego implementar el Stream builder por que no esta funcionando
     return FutureBuilder(
       future: moviesProvider.searchMovies(query),
       builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
