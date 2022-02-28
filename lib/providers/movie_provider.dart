@@ -8,12 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:peliculasapp/models/models.dart';
+import 'package:peliculasapp/models/search_response.dart';
 
 class MoviesProvider extends ChangeNotifier {
   final String _apiKey = 'f3fd596d627828915cea10d097ef9453';
   final String _baseUrl = 'api.themoviedb.org';
   final String _segmentNowPlaying = '3/movie/now_playing';
   final String _segmentPopular = '3/movie/popular';
+  final String _segmentSearch = '3/search/movie';
   final String _language = 'es-ES';
 
 //LLamo una lista de tipo Movie,
@@ -102,5 +104,18 @@ class MoviesProvider extends ChangeNotifier {
     print(creditResponse);
 
     return creditResponse.cast;
+  }
+
+  Future<List<Movie>> searchMovies(String query) async {
+    final url = Uri.https(_baseUrl, _segmentSearch, {
+      'api_key': _apiKey,
+      'language': _language,
+      'query': query,
+    });
+
+    final response = await http.get(url);
+    final searchResponse = SearchResponse.fromJson(response.body);
+
+    return searchResponse.results;
   }
 }
