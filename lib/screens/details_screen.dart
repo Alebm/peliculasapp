@@ -81,6 +81,7 @@ class _CustomAppbar extends StatelessWidget {
 
 class _PosterAndTitle extends StatelessWidget {
   final Movie movie;
+
   const _PosterAndTitle({
     Key? key,
     required this.movie,
@@ -97,14 +98,17 @@ class _PosterAndTitle extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInImage(
-              placeholder: const AssetImage('assets/loading.gif'),
-              image: NetworkImage(movie.fullPosterImg),
-              width: 100,
-              height: 150,
-              fit: BoxFit.cover,
+          Hero(
+            tag: movie.heroID!,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: FadeInImage(
+                placeholder: const AssetImage('assets/loading.gif'),
+                image: NetworkImage(movie.fullPosterImg),
+                width: 100,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const SizedBox(
