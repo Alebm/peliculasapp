@@ -87,13 +87,17 @@ class ListSearch extends StatelessWidget {
     return ListTile(
       leading: Hero(
         tag: movie.heroID!,
-        child: FadeInImage(
-          placeholder: const AssetImage('assets/no-image.jpg'),
-          image: NetworkImage(
-            movie.fullPosterImg,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: FadeInImage(
+            placeholder: const AssetImage('assets/no-image.jpg'),
+            image: NetworkImage(
+              movie.fullPosterImg,
+            ),
+            width: 50,
+            height: double.infinity,
+            fit: BoxFit.contain,
           ),
-          width: 50,
-          fit: BoxFit.contain,
         ),
       ),
       title: Text(movie.title),
