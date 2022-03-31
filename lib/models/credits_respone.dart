@@ -72,10 +72,10 @@ class Cast {
         originalName: json["original_name"],
         popularity: json["popularity"].toDouble(),
         profilePath: json["profile_path"],
-        castId: json["cast_id"] == null ? null : json["cast_id"],
-        character: json["character"] == null ? null : json["character"],
+        castId: json["cast_id"],
+        character: json["character"],
         creditId: json["credit_id"],
-        order: json["order"] == null ? null : json["order"],
-        job: json["job"] == null ? null : json["job"],
+        order: json["order"],
+        job: json["job"],
       );
 }

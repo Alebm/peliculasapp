@@ -35,11 +35,11 @@ class MoviesProvider extends ChangeNotifier {
     duration: const Duration(microseconds: 500),
   );
 
-  final StreamController<List<Movie>> _suggestionStreamController =
+  /*  final StreamController<List<Movie>> _suggestionStreamController =
       StreamController.broadcast();
 
   Stream<List<Movie>> get suggestionStream =>
-      _suggestionStreamController.stream;
+      _suggestionStreamController.stream; */
 
   MoviesProvider() {
     print('MoviesProvider Inicializado');
@@ -134,7 +134,7 @@ class MoviesProvider extends ChangeNotifier {
 
   //para pasar el valor buscado hacia el stream
 
-  void getSuggestionsByQuery(String searchTerm) {
+  /* void getSuggestionsByQuery(String searchTerm) {
     debouncer.value = "";
     debouncer.onValue = (value) async {
       print(value);
@@ -148,5 +148,5 @@ class MoviesProvider extends ChangeNotifier {
 
     Future.delayed(const Duration(milliseconds: 301))
         .then((_) => timer.cancel());
-  }
+  } */
 }

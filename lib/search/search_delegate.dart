@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 
 class MovieSearchDelegate extends SearchDelegate {
   @override
-  // TODO: implement searchFieldLabel
   String get searchFieldLabel => 'Buscar';
 
   @override
@@ -52,7 +51,7 @@ class MovieSearchDelegate extends SearchDelegate {
     }
 
     final moviesProvider = Provider.of<MoviesProvider>(context);
-    moviesProvider.getSuggestionsByQuery(query);
+    //moviesProvider.getSuggestionsByQuery(query);
 
 //TODO: luego implementar el Stream builder por que no esta funcionando
     return FutureBuilder(
