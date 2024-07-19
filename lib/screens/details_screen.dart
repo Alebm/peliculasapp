@@ -1,3 +1,4 @@
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:4035084639.
 import 'package:flutter/material.dart';
 import 'package:peliculasapp/models/models.dart';
 import 'package:peliculasapp/widgets/widgets.dart';
@@ -121,13 +122,13 @@ class _PosterAndTitle extends StatelessWidget {
               children: [
                 Text(
                   movie.title,
-                  style: textTheme.headline5,
+                  style: textTheme.headlineSmall,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
                 Text(
                   movie.originalTitle,
-                  style: textTheme.subtitle1,
+                  style: textTheme.titleMedium,
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                 ),
@@ -143,7 +144,7 @@ class _PosterAndTitle extends StatelessWidget {
                     ),
                     Text(
                       movie.voteAverage.toString(),
-                      style: textTheme.caption,
+                      style: textTheme.bodySmall,
                     ),
                   ],
                 )
